@@ -1,0 +1,66 @@
+# Week 8: Single-Agent vs Multi-Agent
+
+## Overview
+
+This week compares a single tool-using agent against a 4-agent crew
+(Researcher -> Analyst -> Writer -> Critic) on the same evaluation set.
+
+Both systems share the same knowledge base and retrieval tool.
+
+## Architecture
+
+### Single Agent
+Question -> retrieve -> generate -> answer
+
+### Multi-Agent Crew
+Question -> Researcher -> Analyst -> Writer -> Critic -> answer
+
+## Comparison Table
+
+| Strategy | Answer | Citation | Tokens | Latency (s) |
+|----------|:------:|:--------:|:------:|:-----------:|
+| Single Agent | 2/3 | 3/3 | 48 | 64.16 |
+| Multi Agent | 1/3 | 3/3 | 551 | 363.55 |
+
+## Failure Propagation
+
+A failure is injected into the retrieval tool on the first call.
+
+| Strategy | Detected | Recovered | Tokens | Latency (s) |
+|----------|:--------:|:---------:|:------:|:-----------:|
+| Single Agent | Yes | Yes | 30 | 32.86 |
+| Multi Agent | Yes | No | 263 | 150.92 |
+
+In the Multi-Agent crew, the failure propagates to every downstream agent.
+Without context, the Writer hallucinates an answer instead of returning NOT FOUND.
+
+## Verdict
+
+The Multi-Agent crew is not worth the extra cost for this task:
+
+- Lower quality (1/3 vs 2/3).
+- ~11.5x more tokens.
+- ~5.7x more latency.
+- Failure propagates and causes hallucination.
+
+Single Agent is the better choice for retrieval + generation tasks.
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| tools.py | Retrieval + LLM wrapper |
+| single_agent.py | Baseline single agent |
+| multi_agent.py | 4-agent crew |
+| failure_propagation.py | Failure injection test |
+| evaluate_week8.py | Comparison evaluation |
+| knowledge/ | Knowledge base |
+| evals/ | Evaluation cases |
+
+## How to Run
+
+```bash
+python single_agent.py
+python multi_agent.py
+python failure_propagation.py
+python evaluate_week8.py
