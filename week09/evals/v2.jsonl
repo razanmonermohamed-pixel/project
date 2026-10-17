@@ -1,0 +1,6 @@
+{"id":"w6-01","query":"What happens when a website changes?","expected_status":"grounded","expected_answer_points":["website change detected","new content saved"],"gold_doc_ids":["DOC-05"],"expected_source":"DOC-05"}
+{"id":"w6-02","query":"What happens if no previous snapshot exists?","expected_status":"grounded","expected_answer_points":["baseline is created","current website content is saved"],"gold_doc_ids":["DOC-03"],"expected_source":"DOC-03"}
+{"id":"w6-03","query":"What happens when the current website content is identical to the previous snapshot?","expected_status":"grounded","expected_answer_points":["no changes were detected"],"gold_doc_ids":["DOC-04"],"expected_source":"DOC-04"}
+{"id":"w6-04","query":"What is a snapshot?","expected_status":"grounded","expected_answer_points":["saved representation of website content","used as a baseline"],"gold_doc_ids":["DOC-06"],"expected_source":"DOC-06"}
+{"id":"w6-05","query":"What is Retrieval-Augmented Generation (RAG)?","expected_status":"grounded","expected_answer_points":["retrieve relevant information","knowledge source","before producing an answer"],"gold_doc_ids":["DOC-08"],"expected_source":"DOC-08"}
+{"id":"w6-06","query":"How long does it take to detect a website change?","expected_status":"ungrounded","expected_answer_points":[],"gold_doc_ids":[],"expected_source":null}
