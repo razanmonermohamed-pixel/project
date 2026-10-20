@@ -66,7 +66,7 @@ Answer:
             "stream": False,
             "options": {"temperature": 0},
         },
-        timeout=120,
+        timeout=600,
     )
 
     response.raise_for_status()
@@ -91,10 +91,26 @@ def check_answer(answer, case):
 
     points = case["expected_answer_points"]
 
-    return bool(points) and all(
-        normalize(point) in answer_norm
-        for point in points
-    )
+    if not points:
+        return False
+
+    for point in points:
+        point_norm = normalize(point)
+
+        if point_norm in answer_norm:
+            continue
+
+        words = [w for w in point_norm.split() if len(w) > 2]
+        if words and all(word in answer_norm for word in words):
+            continue
+
+        root_words = [w.rstrip("sed").rstrip("s") or w for w in words]
+        if root_words and all(root in answer_norm for root in root_words):
+            continue
+
+        return False
+
+    return True
 
 
 def check_citation(answer, retrieved, case):

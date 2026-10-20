@@ -1,0 +1,12 @@
+[
+  {
+    "question": "What is a snapshot?",
+    "answer": "A snapshot is a saved representation of website content.",
+    "created_at": "2026-10-13T11:43:57.774404+00:00"
+  },
+  {
+    "question": "What happens when a website changes?",
+    "answer": "When a website changes, the system reports that a website change was detected and saves the new content as the latest snapshot. [DOC-05]",
+    "created_at": "2026-10-13T12:15:19.943331+00:00"
+  }
+]
